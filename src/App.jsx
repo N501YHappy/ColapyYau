@@ -1,39 +1,38 @@
-import { Typography, useTheme } from "@mui/material";
+import Title from "./Title";
 import "./App.css";
-const title_list = [
-  { text: "Co", color: "primary" },
-  { text: "la", color: "textPrimary" },
-  { text: "py", color: "primary" },
-  { text: "Yao", color: "textPrimary" },
-];
+import { Button, Stack } from "@mui/material";
+const miaosayings = ["1234", "12344"];
+let appeared = {};
 function App() {
-  const theme = useTheme();
-  
-  const getColorValue = (colorKey) => {
-    if (colorKey === "primary") {
-      return theme.palette.primary.main;
+  async function handleCopyBtnClicked() {
+    try {
+      let len = miaosayings.length;
+      let idx = Math.floor(Math.random() * len);
+      let cnt = 1;
+      while (appeared[idx]) {
+        cnt++;
+        idx = Math.floor(Math.random() * len);
+        if (cnt >= len) {
+          appeared = {};
+          break;
+        }
+      }
+      appeared[idx] = true;
+      console.log("used " + idx + " " + miaosayings.at(idx));
+      await navigator.clipboard.writeText(miaosayings.at(idx));
+    } catch (err) {
+      console.error(err);
     }
-    if (colorKey === "textPrimary") {
-      return theme.palette.text.primary;
-    }
-    return colorKey;
-  };
+  }
   return (
     <div className="App">
       <header className="App-header">
-        {title_list.map((item) => (
-          <Typography
-            variant="h1"
-            color={item.color}
-            sx={{
-              fontWeight: "bold",
-              letterSpacing: 6,
-              textShadow: `0 0 10px ${item.color === 'textPrimary' ? null : getColorValue(item.color)}`,
-            }}
-          >
-            {item.text}
-          </Typography>
-        ))}
+        <Stack spacing={3}>
+          <Title />
+          <Button variant="contained" onClick={handleCopyBtnClicked}>
+            Copy one
+          </Button>
+        </Stack>
       </header>
     </div>
   );
