@@ -3,4 +3,11 @@
 .App-header {
   background-color: #def1ff;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-header h1 {
+  margin: 0;
 }
