@@ -4,7 +4,7 @@ const title_list = [
   { text: "Co", color: "primary" },
   { text: "la", color: "textPrimary" },
   { text: "py", color: "primary" },
-  { text: "Yao", color: "textPrimary" },
+  { text: "Yau", color: "textPrimary" },
 ];
 
 function Title() {
