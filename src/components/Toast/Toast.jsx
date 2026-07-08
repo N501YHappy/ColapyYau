@@ -1,21 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { Card, IconButton, useTheme } from "@mui/material";
 import { css } from "@emotion/react";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CloseIcon from "@mui/icons-material/Close";
 import "./Toast.css";
 import { useState, useEffect } from "react";
 import Success from "../icons/Success";
 import Alert from "../icons/Alert";
-import Failure from "../icons/Failure";
+import Error from "../icons/Error";
 
 function Toast({ children, type, dur = 5, removeFunc }) {
   const theme = useTheme();
   var color = theme.palette.success.main;
-  if (type === "success"){
+  if (type === "success") {
     color = theme.palette.success.main;
-  }else if (type === "failure"){
+  } else if (type === "failure") {
     color = theme.palette.error.main;
+  } else if (type === "alert") {
+    color = theme.palette.info.main;
   }
   const cardStyle = css`
     max-width: 400px;
@@ -46,7 +47,7 @@ function Toast({ children, type, dur = 5, removeFunc }) {
 
   useEffect(() => {
     if (dur > 0) {
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         setClosed(true);
         setTimeout(() => {
           setRmoved(true);
@@ -64,8 +65,8 @@ function Toast({ children, type, dur = 5, removeFunc }) {
     icons = <Success />;
   } else if (type === "alert") {
     icons = <Alert />;
-  } else if (type === "failure") {
-    icons = <Failure />;
+  } else if (type === "error") {
+    icons = <Error />;
   }
   return (
     <Card css={cardStyle} className={isClosed ? "hide" : "show"}>

@@ -1,10 +1,10 @@
 import { Stack, Typography, useTheme } from "@mui/material";
 
 const title_list = [
-  { text: "Co", color: "primary" },
-  { text: "la", color: "textPrimary" },
-  { text: "py", color: "primary" },
-  { text: "Yau", color: "textPrimary" },
+  { text: "Co", color: "primary", id: 1 },
+  { text: "la", color: "textPrimary", id: 2 },
+  { text: "py", color: "primary", id: 3 },
+  { text: "Yau", color: "textPrimary", id: 4 },
 ];
 
 function Title() {
@@ -33,6 +33,7 @@ function Title() {
           <Typography
             variant="h1"
             color={item.color}
+            key={item.id}
             sx={{
               fontWeight: "bold",
               fontSize: "9rem",
