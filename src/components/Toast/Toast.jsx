@@ -13,7 +13,7 @@ function Toast({ children, type, dur = 5, removeFunc }) {
   var color = theme.palette.success.main;
   if (type === "success") {
     color = theme.palette.success.main;
-  } else if (type === "failure") {
+  } else if (type === "error") {
     color = theme.palette.error.main;
   } else if (type === "alert") {
     color = theme.palette.info.main;
@@ -55,7 +55,7 @@ function Toast({ children, type, dur = 5, removeFunc }) {
         }, 550);
       }, dur * 1000);
     }
-  }, []);
+  }, [dur,removeFunc]);
 
   if (isRemoved) {
     return null;
