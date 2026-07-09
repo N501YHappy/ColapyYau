@@ -19,7 +19,7 @@ function Toast({ children, type, dur = 5, removeFunc }) {
     color = theme.palette.info.main;
   }
   const cardStyle = css`
-    max-width: 400px;
+    width: 400px;
     padding: 12px;
     display: flex;
     align-items: center;

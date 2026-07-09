@@ -3,7 +3,7 @@ import Toast from "./components/Toast/Toast";
 import "./App.css";
 import { Button, Stack, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { get } from "./utils/getStatus";
+import { getRandom } from "./utils/getStatus";
 let toast_cnt = 0;
 
 function App() {
@@ -34,8 +34,9 @@ function App() {
     }
 
     async function handleCopyBtnClicked() {
-        let result = await get();
+        let result = await getRandom();
         if (result[0]) {
+            await navigator.clipboard.writeText(result[1])
             toast_copy(result[1]);
         } else {
             toast(result[1], "error", 5);
