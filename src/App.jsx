@@ -3,7 +3,8 @@ import Toast from "./components/Toast/Toast";
 import "./App.css";
 import { Button, Stack, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { getRandom } from "./utils/getStatus";
+import { getRandom } from "./utils/getData";
+import StatusBar from "./components/StatusBar/StatusBar";
 let toast_cnt = 0;
 
 function App() {
@@ -87,6 +88,14 @@ function App() {
                     </Button>
                 </Stack>
             </header>
+            <div style={{
+                position: "absolute",
+                bottom: "10px",
+                left: "10px",
+                display: "flex"
+            }}>
+                <StatusBar/>
+            </div>
         </div>
     );
 }
