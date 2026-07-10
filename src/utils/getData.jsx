@@ -38,20 +38,19 @@ export async function getById(id) {
     return [success, result];
 }
 export async function getRandom() {
-    let mTotal = null;
-    if (total != null) {
-        mTotal = total;
-    } else {
-        let [_success, mTotal] = await getTotal();
+    if (total === null) {
+        let [_success, _mTotal] = await getTotal();
         if (!_success) {
-            return [false, mTotal];
+            return [false, _mTotal];
         }
+        total = _mTotal;
     }
-    let [_success,_result] =await getById(getRandomInt(1,mTotal));
+    console.log(total);
+    let [_success, _result] = await getById(getRandomInt(1, total));
     return [_success, _result];
 }
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
