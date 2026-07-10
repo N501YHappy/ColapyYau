@@ -23,7 +23,7 @@ function App() {
         toast(
             "猫娘保护中心提醒你：禁止复制粘贴喵，支持原创文案喵，保护知识产权喵，争做文明猫娘喵，要从你我做起喵",
             "alert",
-            5,
+            10,
         );
     }, []);
     return (
@@ -60,16 +60,8 @@ function App() {
                     </Button>
                 </Stack>
             </header>
-            <div
-                style={{
-                    position: "absolute",
-                    bottom: "10px",
-                    left: "10px",
-                    display: "flex",
-                }}
-            >
-                <StatusBar toast={toast} />
-            </div>
+
+            <StatusBar toast={toast} />
         </div>
     );
 }

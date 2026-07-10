@@ -38,41 +38,50 @@ function StatusBar({ toast }) {
         }
     }, [isConnected]);
     return (
-        <Card
-            variant="outlined"
-            sx={{
-                minWidth: 275,
-                boxShadow: "2px 2px 2px 2px #00000030",
-                borderColor: "azure",
-                borderWidth: "2px",
+        <div
+            style={{
+                position: "absolute",
+                bottom: "10px",
+                left: "10px",
+                display: "flex",
             }}
         >
-            <CardContent>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    <IconButton onClick={fetchStatus}>
-                        {isConnected === null ? (
-                            <Loading />
-                        ) : isConnected ? (
-                            <Connected />
-                        ) : (
-                            <Disconnected />
-                        )}
-                    </IconButton>
-                    <Box sx={{ display: "flex", flexDirection: "column" }}>
-                        <Typography variant="p" sx={{ opacity: 0.6 }}>
-                            当前状态
-                        </Typography>
-                        <Typography variant="h4" sx={{ fontSize: "2.0em" }}>
-                            {isConnected === null
-                                ? "正在前往卡丘世界"
-                                : isConnected
-                                  ? "成功连接至服务器"
-                                  : "似了喵！"}
-                        </Typography>
+            <Card
+                variant="outlined"
+                sx={{
+                    minWidth: 275,
+                    boxShadow: "2px 2px 2px 2px #00000030",
+                    borderColor: "azure",
+                    borderWidth: "2px",
+                }}
+            >
+                <CardContent>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                        <IconButton onClick={fetchStatus}>
+                            {isConnected === null ? (
+                                <Loading />
+                            ) : isConnected ? (
+                                <Connected />
+                            ) : (
+                                <Disconnected />
+                            )}
+                        </IconButton>
+                        <Box sx={{ display: "flex", flexDirection: "column" }}>
+                            <Typography variant="p" sx={{ opacity: 0.6 }}>
+                                当前状态
+                            </Typography>
+                            <Typography variant="h4" sx={{ fontSize: "2.0em" }}>
+                                {isConnected === null
+                                    ? "正在前往卡丘世界"
+                                    : isConnected
+                                      ? "成功连接至服务器"
+                                      : "似了喵！"}
+                            </Typography>
+                        </Box>
                     </Box>
-                </Box>
-            </CardContent>
-        </Card>
+                </CardContent>
+            </Card>
+        </div>
     );
 }
 export default StatusBar;
