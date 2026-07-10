@@ -5,7 +5,7 @@ function Disconnected(params) {
     <img 
       src={process.env.PUBLIC_URL + '/status/disconnected.png'} 
       alt="Disconnected" 
-      width={48}
+      width={64}
     />
   );
 }

@@ -4,37 +4,70 @@ import {
     Card,
     CardActions,
     CardContent,
-    Stack,
+    IconButton,
     Typography,
 } from "@mui/material";
 import Connected from "../icons/Connected";
 import Disconnected from "../icons/Disconnected";
+import Loading from "../icons/Loading";
 import { useEffect, useState } from "react";
 import { getServerStatus } from "../../utils/getStatus";
-function StatusBar() {
-    let [isConnected, setConnected] = useState(false);
+import useToast from "../../utils/makeToast";
+function StatusBar({ toast }) {
+    let [isConnected, setConnected] = useState(null);
+    const fetchStatus = async () => {
+        setConnected(null);
+        const [success, result] = await getServerStatus();
+        if (success && result === "OK") {
+            setConnected(true);
+        } else {
+            setConnected(false);
+        }
+    };
     useEffect(() => {
-        const fetchStatus = async () => {
-            const [success, result] = await getServerStatus();
-            if (success && result === "OK") {
-                setConnected(true);
-            } else {
-                setConnected(false);
-            }
-        };
         fetchStatus();
     }, []);
+    useEffect(() => {
+        if (isConnected == null) {
+            return;
+        }
+        if (isConnected) {
+            toast("成功连接服务器", "success", 5);
+        } else {
+            toast("连接服务器失败", "error", 5);
+        }
+    }, [isConnected]);
     return (
-        <Card sx={{ minWidth: 275 }}>
+        <Card
+            variant="outlined"
+            sx={{
+                minWidth: 275,
+                boxShadow: "2px 2px 2px 2px #00000030",
+                borderColor: "azure",
+                borderWidth: "2px",
+            }}
+        >
             <CardContent>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                    {isConnected ? <Connected /> : <Disconnected />}
+                    <IconButton onClick={fetchStatus}>
+                        {isConnected === null ? (
+                            <Loading />
+                        ) : isConnected ? (
+                            <Connected />
+                        ) : (
+                            <Disconnected />
+                        )}
+                    </IconButton>
                     <Box sx={{ display: "flex", flexDirection: "column" }}>
-                        <Typography variant="body2" sx={{ opacity: 0.6 }}>
+                        <Typography variant="p" sx={{ opacity: 0.6 }}>
                             当前状态
                         </Typography>
-                        <Typography variant="h6" component="p">
-                            {isConnected ? "成功连接后端服务器" : "洗大锅！"}
+                        <Typography variant="h4" sx={{ fontSize: "2.0em" }}>
+                            {isConnected === null
+                                ? "正在前往卡丘世界"
+                                : isConnected
+                                  ? "成功连接至服务器"
+                                  : "似了喵！"}
                         </Typography>
                     </Box>
                 </Box>

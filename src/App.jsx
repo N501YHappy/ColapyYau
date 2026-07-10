@@ -1,43 +1,19 @@
 import Title from "./components/Title/Title";
 import Toast from "./components/Toast/Toast";
 import "./App.css";
-import { Button, Stack, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { Button, Stack } from "@mui/material";
+import { useEffect } from "react";
 import { getRandom } from "./utils/getData";
 import StatusBar from "./components/StatusBar/StatusBar";
-let toast_cnt = 0;
+import useToast from "./utils/makeToast";
 
 function App() {
-    const [toasts, setToasts] = useState([]);
-    function toast(text, type, dur) {
-        const id = toast_cnt++;
-        setToasts((prev) => [...prev, { id, text, type, dur }]);
-    }
-    function toast_copy(content) {
-        const max_len = 15;
-        const preview = content?.slice(0, max_len);
-        const b = content?.length > max_len;
-
-        toast(
-            <>
-                <Typography component="span" sx={{ marginRight: "10px" }}>
-                    复制成功！
-                </Typography>
-                <Typography component="span" sx={{ opacity: 0.3 }}>
-                    {content
-                        ? `${preview}${b ? "..." : ""}`
-                        : "什么都没有喵..."}
-                </Typography>
-            </>,
-            "success",
-            5,
-        );
-    }
+    const { toasts, toast, toast_copy, removeToast } = useToast();
 
     async function handleCopyBtnClicked() {
         let result = await getRandom();
         if (result[0]) {
-            await navigator.clipboard.writeText(result[1])
+            await navigator.clipboard.writeText(result[1]);
             toast_copy(result[1]);
         } else {
             toast(result[1], "error", 5);
@@ -69,11 +45,7 @@ function App() {
                             key={t.id}
                             dur={t.dur}
                             type={t.type}
-                            removeFunc={() =>
-                                setToasts((prev) =>
-                                    prev.filter((t1) => t1.id !== t.id),
-                                )
-                            }
+                            removeFunc={() => removeToast(t.id)}
                         >
                             {t.text}
                         </Toast>
@@ -88,13 +60,15 @@ function App() {
                     </Button>
                 </Stack>
             </header>
-            <div style={{
-                position: "absolute",
-                bottom: "10px",
-                left: "10px",
-                display: "flex"
-            }}>
-                <StatusBar/>
+            <div
+                style={{
+                    position: "absolute",
+                    bottom: "10px",
+                    left: "10px",
+                    display: "flex",
+                }}
+            >
+                <StatusBar toast={toast} />
             </div>
         </div>
     );
