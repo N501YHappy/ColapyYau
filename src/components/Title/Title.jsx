@@ -37,7 +37,7 @@ function Title() {
                         key={item.id}
                         sx={{
                             fontWeight: "bold",
-                            fontSize: "9rem",
+                            fontSize: "6rem",
                             letterSpacing: 6,
                             textShadow: `0 0 10px ${item.color === "textPrimary" ? null : getColorValue(item.color)}`,
                         }}
@@ -47,7 +47,7 @@ function Title() {
                 ))}
             </Stack>
             <Box sx={{display: "flex", alignItems: "flex-end"}}>
-              <Typography variant="h4">复制！粘贴！</Typography>
+              <Typography variant="h6" sx={{opacity: 0.3}}>复制！粘贴！</Typography>
                 <StatusBar2 />
             </Box>
         </Stack>

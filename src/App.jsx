@@ -1,7 +1,7 @@
 import Title from "./components/Title/Title";
 import Toast from "./components/Toast/Toast";
 import "./App.css";
-import { Button, Stack } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import { useEffect } from "react";
 import { getRandom } from "./utils/getData";
 import StatusBar from "./components/StatusBar/StatusBar";
@@ -52,12 +52,39 @@ function App() {
                     ))}
                 </Stack>
             </div>
-            <header className="App-header">
+            <header
+                className="App-header"
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+            >
                 <Stack spacing={3}>
                     <Title />
-                    <Button variant="contained" onClick={handleCopyBtnClicked}>
-                        Copy one
-                    </Button>
+                    <Stack
+                        direction="row"
+                        spacing={4}
+                        sx={{ display: "flex", justifyContent: "center" }}
+                    >
+                        <Button
+                            size="large"
+                            variant="contained"
+                            color="primary"
+                            onClick={handleCopyBtnClicked}
+                        >
+                            复制！
+                        </Button>
+
+                        <Button
+                            size="large"
+                            variant="contained"
+                            color="grey"
+                            onClick={handleCopyBtnClicked}
+                        >
+                            上传
+                        </Button>
+                    </Stack>
                 </Stack>
             </header>
 

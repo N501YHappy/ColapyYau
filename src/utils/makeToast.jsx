@@ -12,7 +12,7 @@ export default function useToast() {
     }
 
     function toast_copy(content) {
-        const max_len = 15;
+        const max_len =27;
         const preview = content?.slice(0, max_len);
         const b = content?.length > max_len;
 
