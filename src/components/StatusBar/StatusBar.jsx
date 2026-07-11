@@ -13,8 +13,8 @@ import Loading from "../icons/Loading";
 import { useEffect, useState } from "react";
 import { getServerStatus } from "../../utils/getStatus";
 import useToast from "../../utils/makeToast";
-function StatusBar({ toast }) {
-    let [isConnected, setConnected] = useState(null);
+import StatusBar2 from "../StatusBar2/StatusBar2";
+function StatusBar({ toast, isConnected, setConnected }) {
     const fetchStatus = async () => {
         setConnected(null);
         const [success, result] = await getServerStatus();
@@ -71,11 +71,18 @@ function StatusBar({ toast }) {
                                 当前状态
                             </Typography>
                             <Typography variant="h4" sx={{ fontSize: "2.0em" }}>
-                                {isConnected === null
-                                    ? "正在前往卡丘世界"
-                                    : isConnected
-                                      ? "成功连接至服务器"
-                                      : "似了喵！"}
+                                {isConnected === null ? (
+                                    "正在前往卡丘世界"
+                                ) : isConnected ? (
+                                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                                        <Typography variant="p">
+                                            成功连接至服务器
+                                        </Typography>
+                                        <StatusBar2 />
+                                    </Box>
+                                ) : (
+                                    "似了喵！"
+                                )}
                             </Typography>
                         </Box>
                     </Box>

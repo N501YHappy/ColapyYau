@@ -2,14 +2,14 @@ import Title from "./components/Title/Title";
 import Toast from "./components/Toast/Toast";
 import "./App.css";
 import { Button, Chip, Stack } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getRandom } from "./utils/getData";
 import StatusBar from "./components/StatusBar/StatusBar";
 import useToast from "./utils/makeToast";
 
 function App() {
     const { toasts, toast, toast_copy, removeToast } = useToast();
-
+    let [isConnected,setConnected] = useState(null);
     async function handleCopyBtnClicked() {
         let result = await getRandom();
         if (result[0]) {
@@ -61,7 +61,7 @@ function App() {
                 }}
             >
                 <Stack spacing={3}>
-                    <Title />
+                    <Title isConnected = {isConnected}/>
                     <Stack
                         direction="row"
                         spacing={4}
@@ -72,6 +72,7 @@ function App() {
                             variant="contained"
                             color="primary"
                             onClick={handleCopyBtnClicked}
+                            disabled={!isConnected}
                         >
                             复制！
                         </Button>
@@ -81,6 +82,7 @@ function App() {
                             variant="contained"
                             color="grey"
                             onClick={handleCopyBtnClicked}
+                            disabled={!isConnected}
                         >
                             上传
                         </Button>
@@ -88,7 +90,7 @@ function App() {
                 </Stack>
             </header>
 
-            <StatusBar toast={toast} />
+            <StatusBar toast={toast} isConnected={isConnected} setConnected={setConnected} />
         </div>
     );
 }

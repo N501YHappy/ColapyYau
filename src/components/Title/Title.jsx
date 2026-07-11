@@ -8,7 +8,7 @@ const title_list = [
     { text: "Yau", color: "textPrimary", id: 4 },
 ];
 
-function Title() {
+function Title({isConnected}) {
     const theme = useTheme();
 
     const getColorValue = (colorKey) => {
@@ -39,7 +39,7 @@ function Title() {
                             fontWeight: "bold",
                             fontSize: "6rem",
                             letterSpacing: 6,
-                            textShadow: `0 0 10px ${item.color === "textPrimary" ? null : getColorValue(item.color)}`,
+                            textShadow: `0 0 10px ${item.color === "textPrimary" || !isConnected ? null : getColorValue(item.color)}`,
                         }}
                     >
                         {item.text}
@@ -48,7 +48,7 @@ function Title() {
             </Stack>
             <Box sx={{display: "flex", alignItems: "flex-end"}}>
               <Typography variant="h6" sx={{opacity: 0.3}}>复制！粘贴！</Typography>
-                <StatusBar2 />
+                
             </Box>
         </Stack>
     );
