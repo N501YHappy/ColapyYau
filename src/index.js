@@ -11,16 +11,11 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     textTransform: "none",
-                    borderRadius: 120
-                }
+                    borderRadius: 120,
+                },
             },
         },
     },
-    palette: {
-      grey: {
-        main: "#bdbdbd"
-      }
-    }
 });
 root.render(
     <ThemeProvider theme={theme}>
