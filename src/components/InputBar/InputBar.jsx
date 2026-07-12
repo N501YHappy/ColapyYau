@@ -15,19 +15,19 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
     let [InputText, setInputText] = useState("");
     function handleCopyBtnClicked() {
         let saying = InputText;
-        if (saying === ""){
+        if (saying === "") {
             toast("什么都没有啊喵", "error", 5);
-        }else{
+        } else {
             navigator.clipboard.writeText(saying);
             toast_copy(saying);
         }
     }
     async function updateTextField() {
-        let result = await getRandom();
-        if (result[0]) {
-            setInputText(result[1]);
+        let [success, result] = await getRandom();
+        if (success) {
+            setInputText(result.message);
         } else {
-            toast(result[1], "error", 5);
+            toast(result.message, "error", 5);
         }
     }
     return (
@@ -41,8 +41,8 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
                             value={InputText}
                             fullWidth
                             rows={5}
-                            InputLabelProps={{
-                                shrink: true, // 强制 label 始终处于浮动（收缩）状态
+                            onChange={(event) => {
+                                setInputText(event.target.value);
                             }}
                         />
                     </Grid>
@@ -56,21 +56,16 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
                     >
                         <Stack direction="row" spacing={1}>
                             <Button
-                                size="large"
                                 variant="contained"
                                 color="primary"
                                 onClick={handleCopyBtnClicked}
                             >
                                 复制
                             </Button>
-                            <Button
-                                size="large"
-                                variant="contained"
-                                color="primary"
-                            >
+                            <Button variant="contained" color="primary">
                                 上传
                             </Button>
-                            <IconButton size="large" onClick={updateTextField}>
+                            <IconButton onClick={updateTextField}>
                                 <RefreshIcon />
                             </IconButton>
                         </Stack>

@@ -11,7 +11,7 @@ export async function getTotal() {
         result = (await axios.get(API_URL + STATUS_METHOD)).data;
         success = true;
     } catch (err) {
-        result = err.message;
+        result = {message: err.message};
         console.log(result);
         success = false;
     }
@@ -26,14 +26,11 @@ export async function getById(id) {
     let success = false;
     try {
         result = (await axios.get(API_URL + GET_METHOD + "/" + id)).data;
-        success = true;
+        success = result.success;
     } catch (err) {
-        result = err.message;
-        console.log(result);
+        result = {message: err.message};
+        console.log(result.message);
         success = false;
-    }
-    if (success) {
-        result = result.message;
     }
     return [success, result];
 }
@@ -45,8 +42,8 @@ export async function getRandom() {
         }
         total = _mTotal;
     }
-    console.log(total);
     let [_success, _result] = await getById(getRandomInt(1, total));
+    //console.log(_success, _result);
     return [_success, _result];
 }
 function getRandomInt(min, max) {
