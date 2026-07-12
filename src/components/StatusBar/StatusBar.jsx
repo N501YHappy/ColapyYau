@@ -1,8 +1,6 @@
 import {
     Box,
-    Button,
     Card,
-    CardActions,
     CardContent,
     IconButton,
     Typography,
@@ -10,9 +8,8 @@ import {
 import Connected from "../icons/Connected";
 import Disconnected from "../icons/Disconnected";
 import Loading from "../icons/Loading";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getServerStatus } from "../../utils/getStatus";
-import useToast from "../../utils/makeToast";
 import StatusBar2 from "../StatusBar2/StatusBar2";
 function StatusBar({ toast, isConnected, setConnected }) {
     const fetchStatus = async () => {

@@ -1,5 +1,4 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import StatusBar2 from "../StatusBar2/StatusBar2";
 
 const title_list = [
     { text: "Co", color: "primary", id: 1 },

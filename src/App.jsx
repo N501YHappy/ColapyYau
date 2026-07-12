@@ -1,24 +1,15 @@
 import Title from "./components/Title/Title";
 import Toast from "./components/Toast/Toast";
 import "./App.css";
-import { Button, Chip, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getRandom } from "./utils/getData";
 import StatusBar from "./components/StatusBar/StatusBar";
 import useToast from "./utils/makeToast";
+import InputBar from "./components/InputBar/InputBar";
 
 function App() {
     const { toasts, toast, toast_copy, removeToast } = useToast();
-    let [isConnected,setConnected] = useState(null);
-    async function handleCopyBtnClicked() {
-        let result = await getRandom();
-        if (result[0]) {
-            await navigator.clipboard.writeText(result[1]);
-            toast_copy(result[1]);
-        } else {
-            toast(result[1], "error", 5);
-        }
-    }
+    let [isConnected, setConnected] = useState(null);
     useEffect(() => {
         toast(
             "猫娘保护中心提醒你：禁止复制粘贴喵，支持原创文案喵，保护知识产权喵，争做文明猫娘喵，要从你我做起喵",
@@ -58,39 +49,25 @@ function App() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    flexDirection: "column",
                 }}
             >
-                <Stack spacing={3}>
-                    <Title isConnected = {isConnected}/>
-                    <Stack
-                        direction="row"
-                        spacing={4}
-                        sx={{ display: "flex", justifyContent: "center" }}
-                    >
-                        <Button
-                            size="large"
-                            variant="contained"
-                            color="primary"
-                            onClick={handleCopyBtnClicked}
-                            disabled={!isConnected}
-                        >
-                            复制！
-                        </Button>
-
-                        <Button
-                            size="large"
-                            variant="contained"
-                            color="grey"
-                            onClick={handleCopyBtnClicked}
-                            disabled={!isConnected}
-                        >
-                            上传
-                        </Button>
-                    </Stack>
+                <Stack spacing={3} sx={{ width: "60%" }}>
+                    <Title isConnected={isConnected} />
+                    <InputBar
+                        toast={toast}
+                        toast_copy={toast_copy}
+                        isConnected={isConnected}
+                        setConnected={setConnected}
+                    />
                 </Stack>
             </header>
 
-            <StatusBar toast={toast} isConnected={isConnected} setConnected={setConnected} />
+            <StatusBar
+                toast={toast}
+                isConnected={isConnected}
+                setConnected={setConnected}
+            />
         </div>
     );
 }
