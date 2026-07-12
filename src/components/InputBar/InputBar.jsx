@@ -70,9 +70,7 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
                                     gap: "5px",
                                 }}
                             >
-                                <Chip
-                                    label={"ID: " + Resp_status["id"]}
-                                />
+                                <Chip label={"ID: " + Resp_status["id"]} />
                                 <Chip
                                     label={"长度: " + Resp_status["length"]}
                                     color="red"
@@ -86,7 +84,7 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
                                                 100 *
                                                 100,
                                         ) /
-                                            10 +
+                                            100 +
                                         "%"
                                     }
                                 />

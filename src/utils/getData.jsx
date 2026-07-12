@@ -43,7 +43,11 @@ export async function getRandom() {
         total = _mTotal;
     }
     let [_success, _result] = await getById(getRandomInt(1, total));
-    //console.log(_success, _result);
+    if (_success) {
+        const msg = _result.message || "";
+        _result.length = msg.length;
+        _result.miao_cnt = msg.split("喵").length - 1;
+    }
     return [_success, _result];
 }
 function getRandomInt(min, max) {
