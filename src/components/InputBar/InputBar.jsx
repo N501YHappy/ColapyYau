@@ -13,11 +13,11 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 
 import { getRandom } from "../../utils/getData";
 import { useState } from "react";
+import { Cottage } from "@mui/icons-material";
 function InputBar({ toast, toast_copy, isConnected, setConnected }) {
     let [InputText, setInputText] = useState("");
 
-    let [lastSuccessed, setlastSuccessed] = useState(false);
-    let [Resp_status, setResp_status] = useState(null);
+    let [Resp_status, setResp_status] = useState({ not_null: false });
     function handleCopyBtnClicked() {
         let saying = InputText;
         if (saying === "") {
@@ -31,12 +31,28 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
         let [success, result] = await getRandom();
         if (!success) {
             toast(result.message, "error", 5);
-            setlastSuccessed(false);
             return;
         }
         setInputText(result.message);
-        setlastSuccessed(true);
-        setResp_status(result);
+        updateStatus(result.message);
+    }
+    function onChange(event) {
+        let content = event.target.value;
+        setInputText(content);
+        updateStatus(content);
+    }
+    function updateStatus(content) {
+        setInputText(content);
+        let miao_cnt = 0;
+        let len = content.length;
+        if (len === 0) {
+            setResp_status({ not_null: false, length: len, miao_cnt: miao_cnt });
+            return;
+        }
+        for (const char of content) {
+            if (char === "喵") miao_cnt++;
+        }
+        setResp_status({ not_null: true, length: len, miao_cnt: miao_cnt });
     }
     return (
         <Card>
@@ -49,9 +65,7 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
                             value={InputText}
                             fullWidth
                             rows={5}
-                            onChange={(event) => {
-                                setInputText(event.target.value);
-                            }}
+                            onChange={onChange}
                         />
                     </Grid>
                     <Grid
@@ -62,7 +76,7 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
                             justifyContent: "space-between",
                         }}
                     >
-                        {lastSuccessed ? (
+                        {Resp_status["not_null"] ? (
                             <Box
                                 sx={{
                                     display: "flex",
@@ -70,7 +84,6 @@ function InputBar({ toast, toast_copy, isConnected, setConnected }) {
                                     gap: "5px",
                                 }}
                             >
-                                <Chip label={"ID: " + Resp_status["id"]} />
                                 <Chip
                                     label={"长度: " + Resp_status["length"]}
                                     color="red"

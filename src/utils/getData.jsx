@@ -29,7 +29,6 @@ export async function getById(id) {
         success = result.success;
     } catch (err) {
         result = {message: err.message};
-        console.log(result.message);
         success = false;
     }
     return [success, result];
@@ -43,11 +42,6 @@ export async function getRandom() {
         total = _mTotal;
     }
     let [_success, _result] = await getById(getRandomInt(1, total));
-    if (_success) {
-        const msg = _result.message || "";
-        _result.length = msg.length;
-        _result.miao_cnt = msg.split("喵").length - 1;
-    }
     return [_success, _result];
 }
 function getRandomInt(min, max) {
